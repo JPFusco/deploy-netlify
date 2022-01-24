@@ -1,22 +1,15 @@
+import {
+  Backdrop, Button, CircularProgress, Divider, InputAdornment,
+  Snackbar, TextField, Typography
+} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
-import { 
-  Divider, 
-  Typography, 
-  Button,
-  TextField,
-  InputAdornment,
-  Snackbar,
-  Backdrop,
-  CircularProgress,
-} from '@material-ui/core'
-import useStyles from './styles';
+import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import Alert from '@material-ui/lab/Alert';
-import { post } from '../../services/ApiClient';
 import useAuth from '../../hook/useAuth';
-import Main from '../../components/Main';
+import { post } from '../../services/ApiClient';
+import useStyles from './styles';
 
 function NovoProduto() {
   const classes = useStyles();
@@ -25,7 +18,6 @@ function NovoProduto() {
   const { register, handleSubmit } = useForm();
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
-  const [test, setTest] = useState([]);
 
   console.log("Test");
 
@@ -45,7 +37,7 @@ function NovoProduto() {
 
       history.push('/produtos');
     } catch (error) {
-      setErro(error.message); 
+      setErro(error.message);
     } finally {
       setCarregando(false);
     }
@@ -57,27 +49,27 @@ function NovoProduto() {
       <div className={classes.formContainer}>
         <TextField label="Nome do produto" {...register('nome', { required: true })} />
         <div className="columns">
-        <TextField
-          label="Preço"
-          {...register('preco', { required: true })}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">R$</InputAdornment>,
-          }}
-        />
-        <TextField
-          label="Estoque"
-          {...register('estoque', { required: true })}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">Un</InputAdornment>,
-          }}
-        />
+          <TextField
+            label="Preço"
+            {...register('preco', { required: true })}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+            }}
+          />
+          <TextField
+            label="Estoque"
+            {...register('estoque', { required: true })}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">Un</InputAdornment>,
+            }}
+          />
         </div>
         <TextField label="Descrição do produto" {...register('descricao', { required: true })} />
         <TextField label="Imagem" {...register('imagem')} />
       </div>
       <Divider className={classes.divider} />
       <Link to="/produtos" className={classes.link}>CANCELAR</Link>
-      <Button 
+      <Button
         className={classes.botao}
         type="submit"
       >ADICIONAR PRODUTO</Button>
